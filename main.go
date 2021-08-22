@@ -51,10 +51,15 @@ func foo(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewEncoder(w).Encode(p1)
 	if err != nil {
-		log.Println("encoded bad data")
+		log.Println("encoded bad data", err)
 	}
 }
 
 func bar(w http.ResponseWriter, r *http.Request) {
-
+	var p person
+	err := json.NewDecoder(r.Body).Decode(&p)
+	if err != nil {
+		log.Println("decoded bad data", err)
+	}
+	log.Println("Decoded p", p)
 }
